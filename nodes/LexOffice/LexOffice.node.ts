@@ -20,7 +20,7 @@ inputs: ['main'],
 outputs: ['main'],
 credentials: [
 	{
-		name: 'LexOfficeApi',
+		name: 'lexOfficeApi',
 		required: true,
 	},
 ],
