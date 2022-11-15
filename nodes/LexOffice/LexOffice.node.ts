@@ -92,13 +92,7 @@ requestDefaults: {
 									"customer": {
 									}
 								},
-								"person": {
-									 "salutation": '={{$parameter.salutation}}',
-									 "firstName": '={{$parameter.firstName}}',
-									 "lastName": '={{$parameter.lastName}}',
-									 "emailAddress": '={{$parameter.emailAddress}}',
-									 "phoneNumber": '={{$parameter.phoneNumber}}'
-								},
+								"person": '={{$parameter.personDetailsUI.personDetails}}',
 								"note": '={{$parameter.note}}'
 							},
 						},
@@ -203,6 +197,7 @@ requestDefaults: {
 						},
 						{
 							displayName: 'Last Name',
+							required: true,
 							name: 'lastName',
 							type: 'string',
 							default: '',
@@ -237,114 +232,71 @@ requestDefaults: {
 			},
 		},
        // Fields for create person operations
-		{
-			displayName: 'Salutation',
-			description: 'Type in salutation for person',
-			name: 'salutation',
-			type: 'string',
-			default: '',
-			displayOptions: {
-				show: {
-					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createPerson',
-					]
-				},
-			},
+	   {
+		displayName: 'Person Details',
+		name: 'personDetailsUI',
+		placeholder: 'Add Person Details',
+		type: 'fixedCollection',
+		default: {},
+		typeOptions: {
+			multipleValues: false,
 		},
-
-		{
-			displayName: 'First Name',
-			description: 'Type in first name for person',
-			name: 'firstName',
-			type: 'string',
-			default: '',
-			displayOptions: {
-				show: {
-					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createPerson',
-					]
-				},
+		description: 'Add Person Details',
+		options: [
+			{
+				name: 'personDetails',
+				displayName: 'Person Details',
+				values: [
+					{
+						displayName: 'Salutation',
+						name: 'salutation',
+						type: 'string',
+						default: '',
+						description: 'Type in salutation for person',
+					},
+					{
+						displayName: 'First Name',
+						name: 'firstName',
+						type: 'string',
+						default: '',
+						description: 'Type in first name for person',
+					},
+					{
+						displayName: 'Last Name',
+						name: 'lastName',
+						required: true,
+						type: 'string',
+						default: '',
+						description: 'Type in last name for person',
+					},
+					{
+						displayName: 'Email Address',
+						name: 'emailAddress',
+						type: 'string',
+						default: '',
+						description: 'Type in email address for person',
+					},
+					{
+						displayName: 'Phone Number',
+						name: 'phoneNumber',
+						type: 'string',
+						default: '',
+						description: 'Type in phone number for person',
+					},
+				],
 			},
+		],
+		displayOptions: {
+			show: {
+				resource: [
+					'contactsEndpoint',
+				],
+				operation: [
+					'createPerson'
+				]
+			}
 		},
-
-		{
-			displayName: 'Last Name',
-			description: 'Type in last name for person',
-			required: true,
-			name: 'lastName',
-			type: 'string',
-			default: '',
-			displayOptions: {
-				show: {
-					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createPerson',
-					]
-				},
-			},
-		},
-
-		{
-			displayName: 'Email Address',
-			description: 'Type in email address for person',
-			name: 'emailAddress',
-			type: 'string',
-			default: '',
-			displayOptions: {
-				show: {
-					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createPerson',
-					]
-				},
-			},
-		},
-
-		{
-			displayName: 'Phone Number',
-			description: 'Type in phone number for person',
-			name: 'phoneNumber',
-			type: 'string',
-			default: '',
-			displayOptions: {
-				show: {
-					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createPerson',
-					]
-				},
-			},
-		},
-		{
-			displayName: 'Note',
-			description: 'Type in note',
-			name: 'note',
-			type: 'string',
-			default: '',
-			displayOptions: {
-				show: {
-					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createPerson',
-						'createCompany'
-					]
-				},
-			},
-		},
+	},
 
 		// Optional/additional fields will go here
 
