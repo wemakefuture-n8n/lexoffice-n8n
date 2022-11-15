@@ -31,8 +31,6 @@ requestDefaults: {
 		'Content-Type': 'application/json',
 	},
 },
-
-
 		properties: [
 
 		// Resources and operations will go here
@@ -125,15 +123,7 @@ requestDefaults: {
 								},
 								"company": {
 									 "name": '={{$parameter.companyName}}',
-									 "contactPersons": [
-										{
-											"salutation": '={{$parameter.salutation}}',
-											"firstName": '={{$parameter.firstName}}',
-											"lastName": '={{$parameter.lastName}}',
-											"emailAddress": '={{$parameter.emailAddress}}',
-											"phoneNumber": '={{$parameter.phoneNumber}}',
-										 }
-									 ]
+									 "contactPersons": '={{$parameter.contactPersonsUI.contactPersons}}'
 								},
 								"note": '={{$parameter.note}}'
 							},
@@ -164,8 +154,7 @@ requestDefaults: {
 				},
 			},
 		},
-		// Fields for Create person/company operations
-
+		// Fields for create company operations
 		{
 			displayName: 'Company Name',
 			description: 'Type in company name',
@@ -183,7 +172,71 @@ requestDefaults: {
 				},
 			},
 		},
-
+		{
+			displayName: 'Contact Persons',
+			name: 'contactPersonsUI',
+			placeholder: 'Add Contact Person',
+			type: 'fixedCollection',
+			default: {},
+			typeOptions: {
+				multipleValues: true,
+			},
+			description: 'Add Contact Persons',
+			options: [
+				{
+					name: 'contactPersons',
+					displayName: 'Contact Persons',
+					values: [
+						{
+							displayName: 'Salutation',
+							name: 'salutation',
+							type: 'string',
+							default: '',
+							description: 'Type in salutation for person',
+						},
+						{
+							displayName: 'First Name',
+							name: 'firstName',
+							type: 'string',
+							default: '',
+							description: 'Type in first name for person',
+						},
+						{
+							displayName: 'Last Name',
+							name: 'lastName',
+							type: 'string',
+							default: '',
+							description: 'Type in last name for person',
+						},
+						{
+							displayName: 'Email Address',
+							name: 'emailAddress',
+							type: 'string',
+							default: '',
+							description: 'Type in email address for person',
+						},
+						{
+							displayName: 'Phone Number',
+							name: 'phoneNumber',
+							type: 'string',
+							default: '',
+							description: 'Type in phone number for person',
+						},
+					],
+				},
+			],
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createCompany'
+					]
+				}
+			},
+		},
+       // Fields for create person operations
 		{
 			displayName: 'Salutation',
 			description: 'Type in salutation for person',
@@ -197,7 +250,6 @@ requestDefaults: {
 					],
 					operation: [
 						'createPerson',
-						'createCompany'
 					]
 				},
 			},
@@ -216,7 +268,6 @@ requestDefaults: {
 					],
 					operation: [
 						'createPerson',
-						'createCompany'
 					]
 				},
 			},
@@ -236,7 +287,6 @@ requestDefaults: {
 					],
 					operation: [
 						'createPerson',
-						'createCompany'
 					]
 				},
 			},
@@ -255,7 +305,6 @@ requestDefaults: {
 					],
 					operation: [
 						'createPerson',
-						'createCompany'
 					]
 				},
 			},
@@ -274,12 +323,10 @@ requestDefaults: {
 					],
 					operation: [
 						'createPerson',
-						'createCompany'
 					]
 				},
 			},
 		},
-
 		{
 			displayName: 'Note',
 			description: 'Type in note',
@@ -302,8 +349,7 @@ requestDefaults: {
 		// Optional/additional fields will go here
 
 		// TODO: Select param for available roles for company and person
-		// TODO: Dynamic add contact persons for create company operation
-		// TODO: Add section for person details in UI
+
 
 		]
 	};
