@@ -66,12 +66,11 @@ requestDefaults: {
 				},
 			},
 			options: [
+			//	operation for GET retrieve a contact
 				{
-					// 'name' is displayed to the user?
-					name: 'Get',
+					name: 'Retrieve a Contact',
 					value: 'retrieveOneContact',
 					action: 'Retrieve a contact',
-					description: 'Retrieve a Contact',
 					routing: {
 						request: {
 							method: 'GET',
@@ -79,10 +78,74 @@ requestDefaults: {
 						},
 					},
 				},
-				// TODO: Add operation for POST Create a Contact
+				// operation for POST create a person
+				{
+					name: 'Create Person',
+					value: 'createPerson',
+					action: 'Create person',
+					description: 'Create a person',
+					routing: {
+						request: {
+							method: 'POST',
+							url: '/contacts',
+							body: {
+								"version": 0,
+								"roles": {
+									"customer": {
+									}
+								},
+								"person": {
+									 "salutation": '={{$parameter.salutation}}',
+									 "firstName": '={{$parameter.firstName}}',
+									 "lastName": '={{$parameter.lastName}}',
+									 "emailAddress": '={{$parameter.emailAddress}}',
+									 "phoneNumber": '={{$parameter.phoneNumber}}'
+								},
+								"note": '={{$parameter.note}}'
+							},
+						},
+					},
+				},
+
+				// operation for POST create a company
+				{
+					name: 'Create Company',
+					value: 'createCompany',
+					action: 'Create company',
+					description: 'Create a company',
+					routing: {
+						request: {
+							method: 'POST',
+							url: '/contacts',
+							body: {
+								"version": 0,
+								"roles": {
+									"customer": {
+									}
+								},
+								"company": {
+									 "name": '={{$parameter.companyName}}',
+									 "contactPersons": [
+										{
+											"salutation": '={{$parameter.salutation}}',
+											"firstName": '={{$parameter.firstName}}',
+											"lastName": '={{$parameter.lastName}}',
+											"emailAddress": '={{$parameter.emailAddress}}',
+											"phoneNumber": '={{$parameter.phoneNumber}}',
+										 }
+									 ]
+								},
+								"note": '={{$parameter.note}}'
+							},
+						},
+					},
+				},
+
+
 			],
 			default: 'retrieveOneContact',
 		},
+      // Fields for retrieveOneContact operation
 		{
 			displayName: 'Contact ID',
 			description: 'Type in Contact ID to retrieve',
@@ -101,8 +164,146 @@ requestDefaults: {
 				},
 			},
 		},
+		// Fields for Create person/company operations
+
+		{
+			displayName: 'Company Name',
+			description: 'Type in company name',
+			name: 'companyName',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createCompany'
+					]
+				},
+			},
+		},
+
+		{
+			displayName: 'Salutation',
+			description: 'Type in salutation for person',
+			name: 'salutation',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createPerson',
+						'createCompany'
+					]
+				},
+			},
+		},
+
+		{
+			displayName: 'First Name',
+			description: 'Type in first name for person',
+			name: 'firstName',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createPerson',
+						'createCompany'
+					]
+				},
+			},
+		},
+
+		{
+			displayName: 'Last Name',
+			description: 'Type in last name for person',
+			required: true,
+			name: 'lastName',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createPerson',
+						'createCompany'
+					]
+				},
+			},
+		},
+
+		{
+			displayName: 'Email Address',
+			description: 'Type in email address for person',
+			name: 'emailAddress',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createPerson',
+						'createCompany'
+					]
+				},
+			},
+		},
+
+		{
+			displayName: 'Phone Number',
+			description: 'Type in phone number for person',
+			name: 'phoneNumber',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createPerson',
+						'createCompany'
+					]
+				},
+			},
+		},
+
+		{
+			displayName: 'Note',
+			description: 'Type in note',
+			name: 'note',
+			type: 'string',
+			default: '',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createPerson',
+						'createCompany'
+					]
+				},
+			},
+		},
 
 		// Optional/additional fields will go here
+
+		// TODO: Select param for available roles for company and person
+		// TODO: Dynamic add contact persons for create company operation
+		// TODO: Add section for person details in UI
 
 		]
 	};
