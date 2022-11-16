@@ -1,5 +1,9 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
+import {
+	getRoleObject
+} from './GenericFunctions';
+
 
 export class LexOffice implements INodeType {
 	description: INodeTypeDescription = {
@@ -88,10 +92,7 @@ requestDefaults: {
 							url: '/contacts',
 							body: {
 								"version": 0,
-								"roles": {
-									"customer": {
-									}
-								},
+								"roles": getRoleObject('={{$parameter.role}}'),
 								"person": '={{$parameter.personDetailsUI.personDetails}}',
 								"note": '={{$parameter.note}}'
 							},
@@ -128,6 +129,39 @@ requestDefaults: {
 
 			],
 			default: 'retrieveOneContact',
+		},
+		// Fields for createCompany & createPerson operations
+		{
+			displayName: 'Role',
+			name: 'role',
+			type: 'options',
+			noDataExpression: true,
+			options: [
+				{
+					name: 'Customer',
+					value: 'customer',
+				},
+				{
+					name: 'Vendor',
+					value: 'vendor',
+				},
+				{
+					name: 'Both',
+					value: 'both',
+				},
+			],
+			default: 'customer',
+			displayOptions: {
+				show: {
+					resource: [
+						'contactsEndpoint',
+					],
+					operation: [
+						'createCompany',
+						'createPerson'
+					]
+				}
+			},
 		},
       // Fields for retrieveOneContact operation
 		{
