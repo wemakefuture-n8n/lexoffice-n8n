@@ -1,10 +1,5 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
-import {
-	getRoleObject
-} from './GenericFunctions';
-
-
 export class LexOffice implements INodeType {
 	description: INodeTypeDescription = {
 
@@ -92,7 +87,7 @@ requestDefaults: {
 							url: '/contacts',
 							body: {
 								"version": 0,
-								"roles": getRoleObject('={{$parameter.role}}'),
+								"roles": '={{$parameter.roles}}',
 								"person": '={{$parameter.personDetailsUI.personDetails}}',
 								"note": '={{$parameter.note}}'
 							},
@@ -112,10 +107,7 @@ requestDefaults: {
 							url: '/contacts',
 							body: {
 								"version": 0,
-								"roles": {
-									"customer": {
-									}
-								},
+								"roles": '={{$parameter.roles}}',
 								"company": {
 									 "name": '={{$parameter.companyName}}',
 									 "contactPersons": '={{$parameter.contactPersonsUI.contactPersons}}'
@@ -125,41 +117,25 @@ requestDefaults: {
 						},
 					},
 				},
-
-
 			],
 			default: 'retrieveOneContact',
 		},
 		// Fields for createCompany & createPerson operations
 		{
-			displayName: 'Role',
-			name: 'role',
-			type: 'options',
-			noDataExpression: true,
-			options: [
-				{
-					name: 'Customer',
-					value: 'customer',
-				},
-				{
-					name: 'Vendor',
-					value: 'vendor',
-				},
-				{
-					name: 'Both',
-					value: 'both',
-				},
-			],
-			default: 'customer',
+			displayName: 'Roles (JSON)',
+			name: 'roles',
+			type: 'json',
+			default: '',
+			description: 'Each customer must have at least one role. The role must be set as an empty object.',
 			displayOptions: {
 				show: {
 					resource: [
-						'contactsEndpoint',
-					],
-					operation: [
-						'createCompany',
-						'createPerson'
-					]
+										'contactsEndpoint',
+									],
+									operation: [
+										'createCompany',
+										'createPerson'
+									]
 				}
 			},
 		},
