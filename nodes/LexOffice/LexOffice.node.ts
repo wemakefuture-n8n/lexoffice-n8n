@@ -89,6 +89,9 @@ requestDefaults: {
 								"version": 0,
 								"roles": '={{$parameter.roles}}',
 								"person": '={{$parameter.personDetailsUI.personDetails}}',
+								"addresses": {
+									"billing": '={{$parameter.billingUI.billingValues}}'
+								},
 								"note": '={{$parameter.note}}'
 							},
 						},
@@ -307,6 +310,65 @@ requestDefaults: {
 			}
 		},
 	},
+
+	{
+        displayName: 'Billing',
+        name: 'billingUi',
+        placeholder: 'Add Billing Address',
+        type: 'fixedCollection',
+        default: {},
+        typeOptions: {
+                multipleValues: true,
+        },
+        description: 'Add Billing Addresses',
+        options: [
+                {
+                        name: 'billingValues',
+                        displayName: 'Billing',
+                        values: [
+                                {
+                                        displayName: 'Street',
+                                        name: 'street',
+                                        type: 'string',
+                                        default: '',
+										description: 'Type in billing street',
+                                },
+                                {
+                                        displayName: 'Zip',
+                                        name: 'zip',
+                                        type: 'number',
+                                        default: '',
+                                        description: 'Type in billing zip',
+                                },
+                                {
+                                        displayName: 'City',
+                                        name: 'city',
+                                        type: 'string',
+                                        default: '',
+                                        description: 'Type in billing city',
+                                },
+                                {
+                                        displayName: 'Country',
+                                        name: 'country',
+                                        type: 'string',
+                                        default: '',
+                                        description: 'Type in billing country',
+                                },
+                        ],
+                },
+        ],
+        displayOptions: {
+                show: {
+                                resource: [
+                                        'contactsEndpoint',
+                                ],
+                                operation: [
+                                        'createPerson'
+                                ]
+                        }
+        },
+}
+
 
 		// Optional/additional fields will go here
 
