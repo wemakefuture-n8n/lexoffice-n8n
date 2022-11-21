@@ -92,7 +92,8 @@ requestDefaults: {
 								"addresses": {
 									"billing": '={{$parameter.billingUI.billingValues}}'
 								},
-								"note": '={{$parameter.note}}'
+								"emailAddresses": '={{$parameter.emailAddressesUI.emailAddresses}}',
+								"phoneNumbers": '={{$parameter.phoneNumbersUI.phoneNumbers}}',
 							},
 						},
 					},
@@ -115,7 +116,7 @@ requestDefaults: {
 									 "name": '={{$parameter.companyName}}',
 									 "contactPersons": '={{$parameter.contactPersonsUI.contactPersons}}'
 								},
-								"note": '={{$parameter.note}}'
+
 							},
 						},
 					},
@@ -312,7 +313,7 @@ requestDefaults: {
 	},
 
 	{
-        displayName: 'Billing',
+        displayName: 'Billing Addresses',
         name: 'billingUi',
         placeholder: 'Add Billing Address',
         type: 'fixedCollection',
@@ -323,56 +324,135 @@ requestDefaults: {
         description: 'Add Billing Addresses',
         options: [
                 {
-                        name: 'billingValues',
-                        displayName: 'Billing',
-                        values: [
-                                {
-                                        displayName: 'Street',
-                                        name: 'street',
-                                        type: 'string',
-                                        default: '',
-										description: 'Type in billing street',
-                                },
-                                {
-                                        displayName: 'Zip',
-                                        name: 'zip',
-                                        type: 'number',
-                                        default: '',
-                                        description: 'Type in billing zip',
-                                },
-                                {
-                                        displayName: 'City',
-                                        name: 'city',
-                                        type: 'string',
-                                        default: '',
-                                        description: 'Type in billing city',
-                                },
-                                {
-                                        displayName: 'Country',
-                                        name: 'country',
-                                        type: 'string',
-                                        default: '',
-                                        description: 'Type in billing country',
-                                },
-                        ],
+               name: 'billingValues',
+               displayName: 'Billing',
+               values: [
+                         {
+                          displayName: 'Street',
+                          name: 'street',
+                          type: 'string',
+                          default: '',
+										      description: 'Type in billing street',
+                          },
+                          {
+                          displayName: 'Zip',
+                          name: 'zip',
+                          type: 'number',
+                          default: '',
+                          description: 'Type in billing zip',
+                          },
+                          {
+                          displayName: 'City',
+                          name: 'city',
+                          type: 'string',
+                          default: '',
+                          description: 'Type in billing city',
+                          },
+                          {
+                          displayName: 'Country',
+                          name: 'country',
+                          type: 'string',
+                          default: '',
+                          description: 'Type in billing country',
+                          },
+                  ],
                 },
         ],
         displayOptions: {
                 show: {
-                                resource: [
-                                        'contactsEndpoint',
-                                ],
-                                operation: [
-                                        'createPerson'
-                                ]
-                        }
-        },
+                      resource: [
+                      'contactsEndpoint',
+                       ],
+                       operation: [
+                       'createPerson'
+                       ]
+                      }
+   },
+},
+{
+	displayName: 'Email Addresses',
+	name: 'emailAddressesUI',
+	placeholder: 'Add Email Address',
+	type: 'fixedCollection',
+	default: {},
+	typeOptions: {
+		multipleValues: false,
+	},
+	description: 'Add Email Address',
+	options: [
+				{
+				name: 'emailAddresses',
+				displayName: 'Email Addresses',
+				values: [
+			{
+			displayName: 'Business',
+			name: 'business',
+			type: 'string',
+			default: '',
+			description: 'Type in business email',
+			},
+		],
+	},
+	],
+	displayOptions: {
+						show: {
+						resource: [
+						'contactsEndpoint',
+],
+		operation: [
+		'createPerson'
+	]
 }
-
+	},
+},
+{
+	displayName: 'Phone Numbers',
+	name: 'phoneNumbersUI',
+	placeholder: 'Add Phone Number',
+	type: 'fixedCollection',
+	default: {},
+	typeOptions: {
+	multipleValues: false,
+	},
+	description: 'Add Phone Number',
+	options: [
+	{
+	name: 'phoneNumbers',
+	displayName: 'Phone Numbers',
+	values: [
+	{
+	displayName: 'Mobile',
+	name: 'mobile',
+	type: 'number',
+	default: '',
+	description: 'Type in mobile phone number',
+	},
+	{
+	displayName: 'Private',
+	name: 'private',
+	type: 'number',
+  default: '',
+	description: 'Type in private phone number',
+},
+],
+},
+	],
+	displayOptions: {
+	show: {
+	resource: [
+'contactsEndpoint',
+],
+operation: [
+'createPerson'
+]
+}
+},
+},
 
 		// Optional/additional fields will go here
 
 		// TODO: Select param for available roles for company and person
+		// TODO: 'mobile', 'private', 'business' parameters should be arrays
 
 
 		]
