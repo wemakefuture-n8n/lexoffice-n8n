@@ -87,13 +87,21 @@ requestDefaults: {
 							url: '/contacts',
 							body: {
 								"version": 0,
-								"roles": '={{$parameter.roles}}',
+									"roles": {
+										"customer": {
+										}
+								},
 								"person": '={{$parameter.personDetailsUI.personDetails}}',
 								"addresses": {
-									"billing": '={{$parameter.billingUI.billingValues}}'
+									"billing": ['={{$parameter.billingUI.billing}}']
 								},
-								"emailAddresses": '={{$parameter.emailAddressesUI.emailAddresses}}',
-								"phoneNumbers": '={{$parameter.phoneNumbersUI.phoneNumbers}}',
+								"emailAddresses": {
+									"business": ['={{$parameter.emailAddressesUI.emailAddresses.business}}']
+								},
+								"phoneNumbers": {
+									"mobile": ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
+									"private": ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+								},
 							},
 						},
 					},
@@ -111,7 +119,10 @@ requestDefaults: {
 							url: '/contacts',
 							body: {
 								"version": 0,
-								"roles": '={{$parameter.roles}}',
+								"roles": {
+									"customer": {
+									}
+							},
 								"company": {
 									 "name": '={{$parameter.companyName}}',
 									 "contactPersons": '={{$parameter.contactPersonsUI.contactPersons}}'
@@ -124,26 +135,15 @@ requestDefaults: {
 			],
 			default: 'retrieveOneContact',
 		},
-		// Fields for createCompany & createPerson operations
-		{
-			displayName: 'Roles (JSON)',
-			name: 'roles',
-			type: 'json',
-			default: '',
-			description: 'Each customer must have at least one role. The role must be set as an empty object.',
-			displayOptions: {
-				show: {
-					resource: [
-										'contactsEndpoint',
-									],
-									operation: [
-										'createCompany',
-										'createPerson'
-									]
-				}
-			},
-		},
-      // Fields for retrieveOneContact operation
+	// Fields for createCompany & createPerson operations
+
+
+	// TODO: Roles parameter
+
+
+
+
+   // Fields for retrieveOneContact operation
 		{
 			displayName: 'Contact ID',
 			description: 'Type in Contact ID to retrieve',
@@ -201,6 +201,7 @@ requestDefaults: {
 							type: 'string',
 							default: '',
 							description: 'Type in salutation for person',
+							hint: "Herr or Frau"
 						},
 						{
 							displayName: 'First Name',
@@ -227,7 +228,7 @@ requestDefaults: {
 						{
 							displayName: 'Phone Number',
 							name: 'phoneNumber',
-							type: 'string',
+							type: 'number',
 							default: '',
 							description: 'Type in phone number for person',
 						},
@@ -267,6 +268,7 @@ requestDefaults: {
 						type: 'string',
 						default: '',
 						description: 'Type in salutation for person',
+						hint: "Herr or Frau"
 					},
 					{
 						displayName: 'First Name',
@@ -282,20 +284,6 @@ requestDefaults: {
 						type: 'string',
 						default: '',
 						description: 'Type in last name for person',
-					},
-					{
-						displayName: 'Email Address',
-						name: 'emailAddress',
-						type: 'string',
-						default: '',
-						description: 'Type in email address for person',
-					},
-					{
-						displayName: 'Phone Number',
-						name: 'phoneNumber',
-						type: 'string',
-						default: '',
-						description: 'Type in phone number for person',
 					},
 				],
 			},
@@ -313,18 +301,18 @@ requestDefaults: {
 	},
 
 	{
-        displayName: 'Billing Addresses',
-        name: 'billingUi',
+        displayName: 'Billing Address',
+        name: 'billingUI',
         placeholder: 'Add Billing Address',
         type: 'fixedCollection',
         default: {},
         typeOptions: {
-                multipleValues: true,
+                multipleValues: false,
         },
-        description: 'Add Billing Addresses',
+        description: 'Add Billing Address',
         options: [
                 {
-               name: 'billingValues',
+               name: 'billing',
                displayName: 'Billing',
                values: [
                          {
@@ -349,11 +337,11 @@ requestDefaults: {
                           description: 'Type in billing city',
                           },
                           {
-                          displayName: 'Country',
-                          name: 'country',
+                          displayName: 'Country Code',
+                          name: 'countryCode',
                           type: 'string',
                           default: '',
-                          description: 'Type in billing country',
+                          description: 'Must contain the country code in the format of ISO 3166 alpha2 (e.g. DE is used for germany)',
                           },
                   ],
                 },
@@ -376,7 +364,7 @@ requestDefaults: {
 	type: 'fixedCollection',
 	default: {},
 	typeOptions: {
-		multipleValues: false,
+		      multipleValues: false,
 	},
 	description: 'Add Email Address',
 	options: [
@@ -385,11 +373,11 @@ requestDefaults: {
 				displayName: 'Email Addresses',
 				values: [
 			{
-			displayName: 'Business',
-			name: 'business',
-			type: 'string',
-			default: '',
-			description: 'Type in business email',
+			          displayName: 'Business',
+			          name: 'business',
+			          type: 'string',
+			          default: '',
+			          description: 'Type in business email',
 			},
 		],
 	},
@@ -452,7 +440,8 @@ operation: [
 		// Optional/additional fields will go here
 
 		// TODO: Select param for available roles for company and person
-		// TODO: 'mobile', 'private', 'business' parameters should be arrays
+		// TODO: Multiple values for 'contact persons' and 'billing addresses' throw size error (in postman as well)
+		// TODO: Take out params from collections for collections that have no mandatory field
 
 
 		]
