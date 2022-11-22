@@ -1,5 +1,6 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
+
 export class LexOffice implements INodeType {
 	description: INodeTypeDescription = {
 
@@ -77,7 +78,7 @@ requestDefaults: {
 				},
 				// operation for POST create a person
 				{
-					name: 'Create Person',
+					name: 'Create Person - Customer',
 					value: 'createPerson',
 					action: 'Create person',
 					description: 'Create a person',
@@ -87,13 +88,13 @@ requestDefaults: {
 							url: '/contacts',
 							body: {
 								"version": 0,
-									"roles": {
-										"customer": {
-										}
-								},
+								"roles": {
+									"customer": {
+									}
+							},
 								"person": '={{$parameter.personDetailsUI.personDetails}}',
 								"addresses": {
-									"billing": ['={{$parameter.billingUI.billing}}']
+									"billing": '={{$parameter.billingUI.billing}}'
 								},
 								"emailAddresses": {
 									"business": ['={{$parameter.emailAddressesUI.emailAddresses.business}}']
@@ -127,7 +128,16 @@ requestDefaults: {
 									 "name": '={{$parameter.companyName}}',
 									 "contactPersons": '={{$parameter.contactPersonsUI.contactPersons}}'
 								},
-
+								"addresses": {
+									"billing": '={{$parameter.billingUI.billing}}'
+								},
+								"emailAddresses": {
+									"business": ['={{$parameter.emailAddressesUI.emailAddresses.business}}']
+								},
+								"phoneNumbers": {
+									"mobile": ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
+									"private": ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+								},
 							},
 						},
 					},
@@ -135,11 +145,10 @@ requestDefaults: {
 			],
 			default: 'retrieveOneContact',
 		},
-	// Fields for createCompany & createPerson operations
+	// Fields for create company & create person operations
 
 
 	// TODO: Roles parameter
-
 
 
 
@@ -185,7 +194,7 @@ requestDefaults: {
 			name: 'contactPersonsUI',
 			placeholder: 'Add Contact Person',
 			type: 'fixedCollection',
-			default: {},
+			default: [],
 			typeOptions: {
 				multipleValues: true,
 			},
@@ -228,7 +237,7 @@ requestDefaults: {
 						{
 							displayName: 'Phone Number',
 							name: 'phoneNumber',
-							type: 'number',
+							type: 'string',
 							default: '',
 							description: 'Type in phone number for person',
 						},
@@ -305,9 +314,9 @@ requestDefaults: {
         name: 'billingUI',
         placeholder: 'Add Billing Address',
         type: 'fixedCollection',
-        default: {},
+        default: [],
         typeOptions: {
-                multipleValues: false,
+                multipleValues: true,
         },
         description: 'Add Billing Address',
         options: [
@@ -320,7 +329,7 @@ requestDefaults: {
                           name: 'street',
                           type: 'string',
                           default: '',
-										      description: 'Type in billing street',
+						  description: 'Type in billing street',
                           },
                           {
                           displayName: 'Zip',
@@ -352,7 +361,8 @@ requestDefaults: {
                       'contactsEndpoint',
                        ],
                        operation: [
-                       'createPerson'
+                       'createPerson',
+											 'createCompany'
                        ]
                       }
    },
@@ -388,7 +398,8 @@ requestDefaults: {
 						'contactsEndpoint',
 ],
 		operation: [
-		'createPerson'
+		'createPerson',
+		'createCompany'
 	]
 }
 	},
@@ -411,14 +422,14 @@ requestDefaults: {
 	{
 	displayName: 'Mobile',
 	name: 'mobile',
-	type: 'number',
+	type: 'string',
 	default: '',
 	description: 'Type in mobile phone number',
 	},
 	{
 	displayName: 'Private',
 	name: 'private',
-	type: 'number',
+	type: 'string',
   default: '',
 	description: 'Type in private phone number',
 },
@@ -431,7 +442,8 @@ requestDefaults: {
 'contactsEndpoint',
 ],
 operation: [
-'createPerson'
+'createPerson',
+'createCompany'
 ]
 }
 },
@@ -440,8 +452,8 @@ operation: [
 		// Optional/additional fields will go here
 
 		// TODO: Select param for available roles for company and person
-		// TODO: Multiple values for 'contact persons' and 'billing addresses' throw size error (in postman as well)
-		// TODO: Take out params from collections for collections that have no mandatory field
+		// TODO: Multiple values for 'contact persons' and 'billing addresses' collections throw size error (in postman as well) if > 1
+		// TODO: Function to remove empty params and collections
 
 
 		]
