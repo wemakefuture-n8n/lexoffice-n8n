@@ -44,6 +44,10 @@ export class LexOffice implements INodeType {
 						name: 'Invoices Endpoint',
 						value: 'invoicesEndpoint',
 					},
+					{
+						name: 'Files Endpoint',
+						value: 'filesEndpoint',
+					},
 				],
 				default: 'contactsEndpoint',
 			},
@@ -268,6 +272,7 @@ export class LexOffice implements INodeType {
 				displayName: 'Contact ID',
 				description: 'Type in Contact ID to retrieve',
 				required: true,
+				hint: 'Returns the contact with id value provided.',
 				name: 'contactID',
 				type: 'string',
 				default: '',
@@ -598,7 +603,7 @@ export class LexOffice implements INodeType {
 				name: 'invoiceID',
 				type: 'string',
 				default: '',
-				hint: 'Get documentFileId for an invoice.',
+				hint: 'Get documentFileId for id value provided.',
 				displayOptions: {
 					show: {
 						resource: ['invoicesEndpoint'],
@@ -607,6 +612,51 @@ export class LexOffice implements INodeType {
 				},
 			},
 
+// Operations for filesEndpoint will go here
+
+{
+	displayName: 'Operation',
+	name: 'operation',
+	type: 'options',
+	noDataExpression: true,
+	displayOptions: {
+		show: {
+			resource: ['filesEndpoint'],
+		},
+	},
+	options: [
+		{
+			name: 'Download a File',
+			value: 'downloadAFile',
+			action: 'Returns the file as binary data for document file id provided',
+			routing: {
+				request: {
+					method: 'GET',
+					url: '=/v1/files/{{$parameter.documentFileId}}',
+				},
+			},
+		},
+	],
+	default: 'downloadAFile',
+},
+
+            // Fields for downloadAFile operation
+
+			{
+				displayName: 'Document File ID',
+				description: 'Type in documentFileId to download',
+				required: true,
+				name: 'documentFileId',
+				type: 'string',
+				default: '',
+				hint: 'Returns the file as binary data for id value provided.',
+				displayOptions: {
+					show: {
+						resource: ['filesEndpoint'],
+						operation: ['downloadAFile'],
+					},
+				},
+			},
 
 			// Optional/additional fields will go here
 
