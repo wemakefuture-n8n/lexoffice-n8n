@@ -2,7 +2,6 @@ import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
 export class LexOffice implements INodeType {
 	description: INodeTypeDescription = {
-		// Basic node details will go here
 
 		displayName: 'LexOffice',
 		name: 'LexOffice',
@@ -23,7 +22,7 @@ export class LexOffice implements INodeType {
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://api.lexoffice.io/v1',
+			baseURL: 'https://api.lexoffice.io',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -31,7 +30,6 @@ export class LexOffice implements INodeType {
 		},
 		properties: [
 			// Resources and operations will go here
-
 			{
 				displayName: 'Resource',
 				name: 'resource',
@@ -42,11 +40,15 @@ export class LexOffice implements INodeType {
 						name: 'Contacts Endpoint',
 						value: 'contactsEndpoint',
 					},
+					{
+						name: 'Invoices Endpoint',
+						value: 'invoicesEndpoint',
+					},
 				],
 				default: 'contactsEndpoint',
 			},
 
-			// Operations will go here
+// Operations for contactsEndpoint will go here
 
 			{
 				displayName: 'Operation',
@@ -67,7 +69,7 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '/contacts',
+								url: '/v1/contacts',
 								body: {
 									version: 0,
 									roles: {
@@ -99,7 +101,7 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '/contacts',
+								url: '/v1/contacts',
 								body: {
 									version: 0,
 									roles: {
@@ -132,7 +134,7 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '/contacts',
+								url: '/v1/contacts',
 								body: {
 									version: 0,
 									roles: {
@@ -164,7 +166,7 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '/contacts',
+								url: '/v1/contacts',
 								body: {
 									version: 0,
 									roles: {
@@ -193,7 +195,7 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '/contacts',
+								url: '/v1/contacts',
 								body: {
 									version: 0,
 									roles: {
@@ -223,7 +225,7 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '/contacts',
+								url: '/v1/contacts',
 								body: {
 									version: 0,
 									roles: {
@@ -251,13 +253,15 @@ export class LexOffice implements INodeType {
 						routing: {
 							request: {
 								method: 'GET',
-								url: '=/contacts/{{$parameter.contactID}}',
+								url: '=/v1/contacts/{{$parameter.contactID}}',
 							},
 						},
 					},
 				],
 				default: 'retrieveOneContact',
 			},
+
+			// Fields for contactsEndpoint
 
 			// Fields for retrieveOneContact operation
 			{
@@ -410,7 +414,7 @@ export class LexOffice implements INodeType {
 				},
 			},
 
-      // Fields for create company & create person operations
+            // Fields for create company & create person operations
 
 			{
 				displayName: 'Billing Addresses',
@@ -556,6 +560,53 @@ export class LexOffice implements INodeType {
 					},
 				},
 			},
+
+// Operations for invoicesEndpoint will go here
+
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['invoicesEndpoint'],
+					},
+				},
+				options: [
+					{
+						name: 'Render an Invoice Document (PDF)',
+						value: 'renderAnInvoiceDocumentPdf',
+						action: 'Render an invoice document pdf',
+						routing: {
+							request: {
+								method: 'GET',
+								url: '=/v1/invoices/{{$parameter.invoiceID}}/document',
+							},
+						},
+					},
+				],
+				default: 'renderAnInvoiceDocumentPdf',
+			},
+
+            // Fields for renderAnInvoiceDocumentPdf operation
+
+			{
+				displayName: 'Invoice ID',
+				description: 'Type in Invoice ID to render',
+				required: true,
+				name: 'invoiceID',
+				type: 'string',
+				default: '',
+				hint: 'Get documentFileId for an invoice.',
+				displayOptions: {
+					show: {
+						resource: ['invoicesEndpoint'],
+						operation: ['renderAnInvoiceDocumentPdf'],
+					},
+				},
+			},
+
 
 			// Optional/additional fields will go here
 
