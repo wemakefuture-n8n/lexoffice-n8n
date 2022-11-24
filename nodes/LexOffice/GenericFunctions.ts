@@ -5,16 +5,16 @@ export function getRoleObject(role : string) {
 	switch (role) {
 		case 'customer':
 			return {
-				customer: {}
+				customer: {},
 			};
 		case 'vendor':
 			return {
-				vendor: {}
+				vendor: {},
 			};
 		case 'both':
 			return {
 				customer: {},
-				vendor: {}
+				vendor: {},
 			};
 		default:
 			return;

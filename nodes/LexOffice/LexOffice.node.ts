@@ -413,13 +413,13 @@ export class LexOffice implements INodeType {
 						operation: [
 							'createPersonAsCustomer',
 							'createPersonAsCustomerAndVendor',
-							'createPersonAsVendor'
+							'createPersonAsVendor',
 					],
 					},
 				},
 			},
 
-            // Fields for create company & create person operations
+						// Fields for create company & create person operations
 
 			{
 				displayName: 'Billing Addresses',
@@ -594,7 +594,7 @@ export class LexOffice implements INodeType {
 				default: 'renderAnInvoiceDocumentPdf',
 			},
 
-            // Fields for renderAnInvoiceDocumentPdf operation
+						// Fields for renderAnInvoiceDocumentPdf operation
 
 			{
 				displayName: 'Invoice ID',
@@ -640,7 +640,7 @@ export class LexOffice implements INodeType {
 	default: 'downloadAFile',
 },
 
-            // Fields for downloadAFile operation
+						// Fields for downloadAFile operation
 
 			{
 				displayName: 'Document File ID',
