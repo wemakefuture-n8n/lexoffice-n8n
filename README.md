@@ -6,8 +6,5 @@ Contacts Endpoint:
 Create Company & Person operations will throw error if no business email and phone numbers are filled. This is caused by default values for empty params.
 
 
-Multiple values for 'contact persons' and 'billing addresses' collections throw size error if size > 1 (in postman as well)
+Multiple values for 'contact persons' and 'billing addresses' collections throw size error if size > 1.
 
-TODO: 
-Function to remove empty params and collections
-Select param for available roles for company and person (option for dynamic roles object)
