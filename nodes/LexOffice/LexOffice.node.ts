@@ -294,7 +294,7 @@ export class LexOffice implements INodeType {
 					send: {
 						type: 'body',
 						property: 'company.name',
-					}
+					},
 				},
 				displayOptions: {
 					show: {
@@ -333,8 +333,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'company.contactPersons[0].salutation',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'First Name',
@@ -346,8 +346,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'company.contactPersons[0].firstName',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'Last Name',
@@ -360,8 +360,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'company.contactPersons[0].lastName',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'Email Address',
@@ -373,8 +373,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'company.contactPersons[0].emailAddress',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'Phone Number',
@@ -386,8 +386,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'company.contactPersons[0].phoneNumber',
-									}
-								}
+									},
+								},
 							},
 						],
 					},
@@ -428,8 +428,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'person.salutation',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'First Name',
@@ -441,8 +441,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'person.firstName',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'Last Name',
@@ -455,8 +455,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'person.lastName',
-									}
-								}
+									},
+								},
 							},
 						],
 					},
@@ -500,8 +500,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'addresses.billing[0].street',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'Zip',
@@ -513,8 +513,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'addresses.billing[0].zip',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'City',
@@ -526,8 +526,8 @@ export class LexOffice implements INodeType {
 									send: {
 										type: 'body',
 										property: 'addresses.billing[0].city',
-									}
-								}
+									},
+								},
 							},
 							{
 								displayName: 'Country Code',
@@ -540,8 +540,8 @@ export class LexOffice implements INodeType {
 										send: {
 											type: 'body',
 											property: 'addresses.billing[0].countryCode',
-										}
-									}
+										},
+									},
 							},
 
 						],
@@ -686,8 +686,8 @@ export class LexOffice implements INodeType {
 							send: {
 								type: 'body',
 								property: 'phoneNumbers.mobile[0]',
-							}
-						}
+							},
+						},
 					},
 					{
 						displayName: 'Private Phone Number',
@@ -699,8 +699,8 @@ export class LexOffice implements INodeType {
 							send: {
 								type: 'body',
 								property: 'phoneNumbers.private[0]',
-							}
-						}
+							},
+						},
 					},
 					{
 						displayName: 'Business Email',
@@ -712,11 +712,11 @@ export class LexOffice implements INodeType {
 							send: {
 								type: 'body',
 								property: 'emailAddresses.business[0]',
-							}
-						}
+							},
+						},
 					},
 				],
-			}
+			},
 
 		],
 	};
