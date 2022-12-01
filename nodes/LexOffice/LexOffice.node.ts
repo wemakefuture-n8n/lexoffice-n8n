@@ -80,18 +80,17 @@ export class LexOffice implements INodeType {
 										customer: {},
 									},
 									company: {
-										name: '={{$parameter.companyName}}',
-										contactPersons: '={{$parameter.contactPersonsUI.contactPersons}}',
+
 									},
 									addresses: {
-										billing: '={{$parameter.billingUI.billing}}',
+
 									},
 									emailAddresses: {
-										business: ['={{$parameter.emailAddressesUI.emailAddresses.business}}'],
+										business: [],
 									},
 									phoneNumbers: {
-										mobile: ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
-										private: ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+										mobile: [],
+										private: [],
 									},
 								},
 							},
@@ -113,18 +112,17 @@ export class LexOffice implements INodeType {
 										vendor: {},
 									},
 									company: {
-										name: '={{$parameter.companyName}}',
-										contactPersons: '={{$parameter.contactPersonsUI.contactPersons}}',
+										contactPersons: [],
 									},
 									addresses: {
-										billing: '={{$parameter.billingUI.billing}}',
+										billing: [],
 									},
 									emailAddresses: {
-										business: ['={{$parameter.emailAddressesUI.emailAddresses.business}}'],
+										business: [],
 									},
 									phoneNumbers: {
-										mobile: ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
-										private: ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+										mobile: [],
+										private: [],
 									},
 								},
 							},
@@ -145,18 +143,17 @@ export class LexOffice implements INodeType {
 										vendor: {},
 									},
 									company: {
-										name: '={{$parameter.companyName}}',
-										contactPersons: '={{$parameter.contactPersonsUI.contactPersons}}',
+										contactPersons: [],
 									},
 									addresses: {
-										billing: '={{$parameter.billingUI.billing}}',
+										billing: [],
 									},
 									emailAddresses: {
-										business: ['={{$parameter.emailAddressesUI.emailAddresses.business}}'],
+										business: [],
 									},
 									phoneNumbers: {
-										mobile: ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
-										private: ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+										mobile: [],
+										private: [],
 									},
 								},
 							},
@@ -176,16 +173,16 @@ export class LexOffice implements INodeType {
 									roles: {
 										customer: {},
 									},
-									person: '={{$parameter.personDetailsUI.personDetails}}',
+									person: {},
 									addresses: {
-										billing: '={{$parameter.billingUI.billing}}',
+										billing: [],
 									},
 									emailAddresses: {
-										business: ['={{$parameter.emailAddressesUI.emailAddresses.business}}'],
+										business: [],
 									},
 									phoneNumbers: {
-										mobile: ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
-										private: ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+										mobile: [],
+										private: [],
 									},
 								},
 							},
@@ -206,16 +203,16 @@ export class LexOffice implements INodeType {
 										customer: {},
 										vendor: {},
 									},
-									person: '={{$parameter.personDetailsUI.personDetails}}',
+									person: {},
 									addresses: {
-										billing: '={{$parameter.billingUI.billing}}',
+										billing: [],
 									},
 									emailAddresses: {
-										business: ['={{$parameter.emailAddressesUI.emailAddresses.business}}'],
+										business: [],
 									},
 									phoneNumbers: {
-										mobile: ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
-										private: ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+										mobile: [],
+										private: [],
 									},
 								},
 							},
@@ -235,16 +232,16 @@ export class LexOffice implements INodeType {
 									roles: {
 										vendor: {},
 									},
-									person: '={{$parameter.personDetailsUI.personDetails}}',
+									person: {},
 									addresses: {
-										billing: '={{$parameter.billingUI.billing}}',
+										billing: [],
 									},
 									emailAddresses: {
-										business: ['={{$parameter.emailAddressesUI.emailAddresses.business}}'],
+										business: [],
 									},
 									phoneNumbers: {
-										mobile: ['={{$parameter.phoneNumbersUI.phoneNumbers.mobile}}'],
-										private: ['={{$parameter.phoneNumbersUI.phoneNumbers.private}}'],
+										mobile: [],
+										private: [],
 									},
 								},
 							},
@@ -267,6 +264,8 @@ export class LexOffice implements INodeType {
 
 			// Fields for contactsEndpoint
 
+
+
 			// Fields for retrieveOneContact operation
 			{
 				displayName: 'Contact ID',
@@ -288,8 +287,15 @@ export class LexOffice implements INodeType {
 				displayName: 'Company Name',
 				description: 'Type in company name',
 				name: 'companyName',
+				required: true,
 				type: 'string',
 				default: '',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'company.name',
+					}
+				},
 				displayOptions: {
 					show: {
 						resource: ['contactsEndpoint'],
@@ -308,7 +314,7 @@ export class LexOffice implements INodeType {
 				type: 'fixedCollection',
 				default: [],
 				typeOptions: {
-					multipleValues: true,
+					multipleValues: false,
 				},
 				description: 'Add Contact Persons',
 				options: [
@@ -323,6 +329,12 @@ export class LexOffice implements INodeType {
 								default: '',
 								description: 'Type in salutation for person',
 								hint: 'Herr or Frau',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'company.contactPersons[0].salutation',
+									}
+								}
 							},
 							{
 								displayName: 'First Name',
@@ -330,6 +342,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in first name for person',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'company.contactPersons[0].firstName',
+									}
+								}
 							},
 							{
 								displayName: 'Last Name',
@@ -338,6 +356,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in last name for person',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'company.contactPersons[0].lastName',
+									}
+								}
 							},
 							{
 								displayName: 'Email Address',
@@ -345,6 +369,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in email address for person',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'company.contactPersons[0].emailAddress',
+									}
+								}
 							},
 							{
 								displayName: 'Phone Number',
@@ -352,6 +382,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in phone number for person',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'company.contactPersons[0].phoneNumber',
+									}
+								}
 							},
 						],
 					},
@@ -388,6 +424,12 @@ export class LexOffice implements INodeType {
 								default: '',
 								description: 'Type in salutation for person',
 								hint: 'Herr or Frau',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'person.salutation',
+									}
+								}
 							},
 							{
 								displayName: 'First Name',
@@ -395,6 +437,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in first name for person',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'person.firstName',
+									}
+								}
 							},
 							{
 								displayName: 'Last Name',
@@ -403,6 +451,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in last name for person',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'person.lastName',
+									}
+								}
 							},
 						],
 					},
@@ -428,7 +482,7 @@ export class LexOffice implements INodeType {
 				type: 'fixedCollection',
 				default: [],
 				typeOptions: {
-					multipleValues: true,
+					multipleValues: false,
 				},
 				description: 'Add Billing Address',
 				options: [
@@ -442,6 +496,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in billing street',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'addresses.billing[0].street',
+									}
+								}
 							},
 							{
 								displayName: 'Zip',
@@ -449,6 +509,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in billing zip',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'addresses.billing[0].zip',
+									}
+								}
 							},
 							{
 								displayName: 'City',
@@ -456,6 +522,12 @@ export class LexOffice implements INodeType {
 								type: 'string',
 								default: '',
 								description: 'Type in billing city',
+								routing: {
+									send: {
+										type: 'body',
+										property: 'addresses.billing[0].city',
+									}
+								}
 							},
 							{
 								displayName: 'Country Code',
@@ -464,7 +536,14 @@ export class LexOffice implements INodeType {
 								default: '',
 								description:
 									'Must contain the country code in the format of ISO 3166 alpha2 (e.g. DE is used for germany)',
+									routing: {
+										send: {
+											type: 'body',
+											property: 'addresses.billing[0].countryCode',
+										}
+									}
 							},
+
 						],
 					},
 				],
@@ -482,89 +561,7 @@ export class LexOffice implements INodeType {
 					},
 				},
 			},
-			{
-				displayName: 'Email Address',
-				name: 'emailAddressesUI',
-				placeholder: 'Add Email Address',
-				type: 'fixedCollection',
-				default: {},
-				typeOptions: {
-					multipleValues: false,
-				},
-				description: 'Add Email Address',
-				options: [
-					{
-						name: 'emailAddresses',
-						displayName: 'Email Addresses',
-						values: [
-							{
-								displayName: 'Business',
-								name: 'business',
-								type: 'string',
-								default: '',
-								description: 'Type in business email',
-							},
-						],
-					},
-				],
-				displayOptions: {
-					show: {
-						resource: ['contactsEndpoint'],
-						operation: ['createPersonAsCustomer',
-						'createPersonAsCustomerAndVendor',
-						'createPersonAsVendor',
 
-						'createCompanyAsCustomer',
-						'createCompanyAsCustomerAndVendor',
-						'createCompanyAsVendor'],
-					},
-				},
-			},
-			{
-				displayName: 'Phone Number',
-				name: 'phoneNumbersUI',
-				placeholder: 'Add Phone Number',
-				type: 'fixedCollection',
-				default: {},
-				typeOptions: {
-					multipleValues: false,
-				},
-				description: 'Add Phone Number',
-				options: [
-					{
-						name: 'phoneNumbers',
-						displayName: 'Phone Numbers',
-						values: [
-							{
-								displayName: 'Mobile',
-								name: 'mobile',
-								type: 'string',
-								default: '',
-								description: 'Type in mobile phone number',
-							},
-							{
-								displayName: 'Private',
-								name: 'private',
-								type: 'string',
-								default: '',
-								description: 'Type in private phone number',
-							},
-						],
-					},
-				],
-				displayOptions: {
-					show: {
-						resource: ['contactsEndpoint'],
-						operation: ['createPersonAsCustomer',
-						'createPersonAsCustomerAndVendor',
-						'createPersonAsVendor',
-
-						'createCompanyAsCustomer',
-						'createCompanyAsCustomerAndVendor',
-						'createCompanyAsVendor'],
-					},
-				},
-			},
 
 // Operations for invoicesEndpoint will go here
 
@@ -640,7 +637,7 @@ export class LexOffice implements INodeType {
 	default: 'downloadAFile',
 },
 
-						// Fields for downloadAFile operation
+// Fields for downloadAFile operation
 
 			{
 				displayName: 'Document File ID',
@@ -660,9 +657,66 @@ export class LexOffice implements INodeType {
 
 			// Optional/additional fields will go here
 
-			// TODO: Select param for available roles for company and person
-			// TODO: Multiple values for 'contact persons' and 'billing addresses' collections throw size error (in postman as well) if > 1
-			// TODO: Function to remove empty params and collections
+			{
+				displayName: 'Additional Fields',
+				name: 'additionalFields',
+				type: 'collection',
+				default: {},
+				placeholder: 'Add Field',
+				displayOptions: {
+					show: {
+						resource: ['contactsEndpoint'],
+						operation: ['createPersonAsCustomer',
+						'createPersonAsCustomerAndVendor',
+						'createPersonAsVendor',
+
+						'createCompanyAsCustomer',
+						'createCompanyAsCustomerAndVendor',
+						'createCompanyAsVendor'],
+					},
+				},
+				options: [
+					{
+						displayName: 'Mobile Phone Number',
+						name: 'mobile',
+						type: 'string',
+						default: '',
+						description: 'Type in mobile phone number',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'phoneNumbers.mobile[0]',
+							}
+						}
+					},
+					{
+						displayName: 'Private Phone Number',
+						name: 'private',
+						type: 'string',
+						default: '',
+						description: 'Type in private phone number',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'phoneNumbers.private[0]',
+							}
+						}
+					},
+					{
+						displayName: 'Business Email',
+						name: 'business',
+						type: 'string',
+						default: '',
+						description: 'Type in business email',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'emailAddresses.business[0]',
+							}
+						}
+					},
+				],
+			}
 
 		],
 	};
