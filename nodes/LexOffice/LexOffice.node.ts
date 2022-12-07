@@ -579,6 +579,7 @@ export class LexOffice implements INodeType {
 					{
 						name: 'Render an Invoice Document (PDF)',
 						value: 'renderAnInvoiceDocumentPdf',
+						description: 'To download the pdf file of an invoice document, you need its documentFileId',
 						action: 'Render an invoice document pdf',
 						routing: {
 							request: {
@@ -587,24 +588,35 @@ export class LexOffice implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Retrieve an Invoice',
+						value: 'retrieveAnInvoice',
+						action: 'Retrieve an invoice',
+						description: 'Returns the invoice with ID value',
+						routing: {
+							request: {
+								method: 'GET',
+								url: '=/v1/invoices/{{$parameter.invoiceID}}',
+							},
+						},
+					},
 				],
 				default: 'renderAnInvoiceDocumentPdf',
 			},
 
-						// Fields for renderAnInvoiceDocumentPdf operation
+						// Fields for renderAnInvoiceDocumentPdf and retrieveAnInvoice operations
 
 			{
 				displayName: 'Invoice ID',
-				description: 'Type in Invoice ID to render',
+				description: 'Type in Invoice ID',
 				required: true,
 				name: 'invoiceID',
 				type: 'string',
 				default: '',
-				hint: 'Get documentFileId for id value provided.',
 				displayOptions: {
 					show: {
 						resource: ['invoicesEndpoint'],
-						operation: ['renderAnInvoiceDocumentPdf'],
+						operation: ['renderAnInvoiceDocumentPdf', 'retrieveAnInvoice'],
 					},
 				},
 			},
@@ -626,6 +638,7 @@ export class LexOffice implements INodeType {
 			name: 'Download a File',
 			value: 'downloadAFile',
 			action: 'Returns the file as binary data for document file id provided',
+			description: 'Returns the file as binary data for document file ID provided',
 			routing: {
 				request: {
 					method: 'GET',
